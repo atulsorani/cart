@@ -6,13 +6,13 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.layout_row.view.*
 
 class RecyclerAdapter(
     private var productList: ArrayList<Product>,
     private val onItemclickListener: OnItemclickListener,
-) :
-    RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
+) :    RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -26,7 +26,7 @@ class RecyclerAdapter(
 
     class ViewHolder(itemView: View, onItemclickListener: OnItemclickListener) :
         RecyclerView.ViewHolder(itemView) {
-        var num = 0
+        var num = 1
 
         init {
 
@@ -40,12 +40,27 @@ class RecyclerAdapter(
 
             itemView.findViewById<TextView>(R.id.plus).setOnClickListener {
                 num++
+                var pricetot = 150 * num
                 itemView.findViewById<TextView>(R.id.quntaty).setText(num.toString())
+                itemView.findViewById<TextView>(R.id.price).setText("\u20B9" +pricetot.toString())
             }
 
             itemView.findViewById<TextView>(R.id.minus).setOnClickListener {
-                num--
-                itemView.findViewById<TextView>(R.id.quntaty).setText(num.toString())
+                if(num == 1){
+                    //itemView.findViewById<TextView>(R.id.quntaty).setText("1")
+                }else {
+                    num--
+                    var pricetot = 150 * num
+                    itemView.findViewById<TextView>(R.id.price).setText("\u20B9" + pricetot.toString())
+                    itemView.findViewById<TextView>(R.id.quntaty).setText(num.toString())
+                }
+            }
+
+            itemView.findViewById<TextView>(R.id.remove).setOnClickListener {
+
+                    val snack : String = "Removed"
+                    Snackbar.make(itemView,snack,Snackbar.LENGTH_LONG).show()
+
             }
         }
 
