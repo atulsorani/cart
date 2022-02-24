@@ -3,11 +3,12 @@ package com.at.cart
 import android.os.Bundle
 import android.provider.Settings.NameValueTable.VALUE
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), RecyclerAdapter.OnItemclickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -27,8 +28,16 @@ class MainActivity : AppCompatActivity() {
         )
 
         var recyclerView1 = findViewById<RecyclerView>(R.id.recyclerView)
-        val recyclerAdapter = RecyclerAdapter(productList)
+        val recyclerAdapter = RecyclerAdapter(productList,this  )
         recyclerView1.adapter = recyclerAdapter
+    }
+
+    override fun onClick(position: Int) {
+        Toast.makeText(this, "Clicked", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onLongClick(position: Int) {
+        Toast.makeText(this, "Long Click", Toast.LENGTH_SHORT).show()
     }
 
 }
